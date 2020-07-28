@@ -3,3 +3,5 @@
 Hard to stop the surmounting terror Is it really the end or some crazy dream?
 Somebody please tell me that I´m dreaming .
 It´s not easy to stop from screaming Words escape me when I try to speak.**
+
+Welcome to my world.
