@@ -10,10 +10,10 @@
 using namespace std;
 void shikariIsListening()
 {
-#ifndef ONLINE_JUDGE
+    #ifndef ONLINE_JUDGE
     freopen ("input.txt","r",stdin);
     freopen ("output.txt","w",stdout);
-#endif
+    #endif
 }
 #define pi 2*acos(0.0)
 #define ll long long int
@@ -28,12 +28,9 @@ void shikariIsListening()
 #define all(x) x.begin(),x.end()
 #define PaglaGhora ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 #define gcd __gcd
-ll lcm(ll x,ll y)
-{
-    return ((x/gcd(x,y))*y);
-}
+ll lcm(ll x,ll y){return ((x/gcd(x,y))*y);}
 #define tin ll T;cin>>T; for(ll o=1;o<=T;o++)
-#define tout cout<<"Case "<<o<<":\n";
+#define tout cout<<"Case "<<o<<": ";
 #define spc printf(" ");
 #define vll vector<ll>
 #define pii pair<ll,ll>
@@ -41,7 +38,7 @@ ll lcm(ll x,ll y)
 #define sc second
 #define sz 100015
 #define EPS 1e-6
-int cmp(double x)
+int cmp(ll x)
 {
     if(fabs(x)<EPS)
         return 0;
@@ -54,9 +51,9 @@ struct PT
     {
         x=y=0;
     }
-    PT(double a,double b)
+    PT (double a,double b)
     {
-        x=a,y=b;
+        x=a;y=b;
     }
     PT operator+(const PT &a) const
     {
@@ -74,73 +71,66 @@ struct PT
     {
         return PT(x/a,y/a);
     }
-    double val()
-    {
-        return sqrt(x*x+y*y);
-    }
-    PT unit()
-    {
-        return (*this)/val();
-    }
     void pin()
     {
-        scanf("%lf %lf",&x,&y);
+        cin>>x>>y;
     }
-    void pout()
-    {
-        printf("%.2f %.2f\n",x,y);
-    }
+
 };
-double dist(PT a,PT b)
+bool comp(PT a,PT b)
 {
-    return (a-b).val();
+     if(a.x<b.x)
+        return 1;
+    else if(a.x==b.x&&a.y<b.y)
+        return 1;
+    return 0;
 }
-double dot(PT a,PT b)
-{
-    return a.x*b.x+a.y*b.y;
-}
-double cross(PT a,PT b)
-{
-    return a.x*b.y-a.y*b.x;
-}
-struct line
-{
-    double a,b,c;
-    void val(PT x,PT y)
-    {
-        a=x.y-y.y;
-        b=y.x-x.x;
-        c=(x.x-y.x)*x.y+(y.y-x.y)*x.x;
-    }
-};
 int main()
 {
-    ///shikariIsListening();
-    //PaglaGhora;
-    PT a,b,c,d,n;
-    line p,q;
-    double x,y;
-    cout<<"INTERSECTING LINES OUTPUT"<<ses;
-    tin
-    {
-        a.pin(),b.pin(),c.pin(),d.pin();
-        if(cmp(cross(a-b,a-c))==0&&cmp(cross(a-b,a-d)==0))
-            cout<<"LINE"<<ses;
-        else if(cmp(cross(a-b,c-d))==0)
-            cout<<"NONE"<<ses;
-        else
-        {
-            p.val(a,b);
-            q.val(c,d);
-            n.x=((p.b*q.c-q.b*p.c)*1.0)/((p.a*q.b-q.a*p.b)*1.0) ;
-            n.y=((p.c*q.a-q.c*p.a)*1.0)/((p.a*q.b-q.a*p.b)*1.0) ;
-            cout<<"POINT ";
-            n.pout();
-        }
+   shikariIsListening();
+   //PaglaGhora;
+   vector<PT>v,a;
+   PT p,q;
+   ll x,y,ans;
+   tin
+   {
+       ll n;
+       in(n);
+       v.clear();
+       a.clear();
+       for(ll i=0;i<n;i++)
+       {
+           p.pin();
+           v.pb(p);
+       }
+       ll l=0;
+       for(ll i=0;i<n;i++)
+        for(ll j=i+1;j<n;j++)
+       {
+           a.pb((v[i]+v[j])/2);
+           l++;
+       }
+       sort(all(a),comp);
+       ll sum=0,temp,k=1;
+       for(ll i=1;i<l;i++)
+       {
+           if(a[i].x==a[i-1].x &&a[i].y==a[i-1].y)
+            k++;
+           else
+           {
+               temp=(k*(k-1))/2;
+               sum+=temp;
+               k=1;
+           }
 
-    }
-    cout<<"END OF OUTPUT"<<ses;
+       }
+        temp=(k*(k-1))/2;
+        sum+=temp;
+        tout;
+        cout<<sum<<ses;
 
+
+   }
     return 0;
 }
 /*   --------------------
